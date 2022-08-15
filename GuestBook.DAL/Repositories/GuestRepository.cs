@@ -20,13 +20,12 @@ namespace GuestBook.DAL.Repositories
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-
         public async Task<Guest> GetGuestAsync(string GuestName)
         {
             using (var conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
-                string sqlCommand = $"SELECT * FROM {nameof(Guest)} WHERE Name = @Name";
+                string sqlCommand = $"SELECT * FROM {nameof(Guest)} WHERE {nameof(Guest.GuestName)} = @Name";
                 var GuestId = await conn.QueryFirstOrDefaultAsync<Guest>(sqlCommand, new { Name = GuestName });
                 return GuestId;
             }
@@ -63,7 +62,7 @@ namespace GuestBook.DAL.Repositories
                 conn.Open();
                 string sqlCommand = $"INSERT INTO {nameof(Guest)} ( [{nameof(Guest.GuestName)}], [{nameof(Guest.PasswordHash)}] , [{nameof(Guest.CreationDate)}]) "
                                    + " OUTPUT INSERTED.Id " +
-                                   " Values( @Name , @PasswordHash , @CreationDate)";
+                                   $" Values( @{nameof(Guest.GuestName)} , @{nameof(Guest.PasswordHash)} , @{nameof(Guest.CreationDate)})";
                 var GuestId = await conn.ExecuteScalarAsync<int>(sqlCommand, item);
                 item.Id = GuestId;
             }
