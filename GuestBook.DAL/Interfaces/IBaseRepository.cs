@@ -11,8 +11,5 @@ namespace GuestBook.DAL.Interfaces
         Task<T> InsertAsync(T item);
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
-        Task<bool> UpdateAsync(T entity);
-        Task<bool> DeleteAsync(object id);
-
     }
 }
