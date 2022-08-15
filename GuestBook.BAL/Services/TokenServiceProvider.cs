@@ -23,18 +23,21 @@ namespace GuestBook.BAL.Services
 
         public AuthResponseDTO GenerateAccessToken(Guest guest)
         {
+            var expirationTime = DateTime.Now.AddMinutes(int.Parse(_configuration["JWT:LifeTimeInMinutes"]));
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
                 claims: GenerateUserClaim(guest),
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256),
+                expires: expirationTime,
+                notBefore: DateTime.Now
                  );
             return new AuthResponseDTO
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 RefreshToken = GenerateRefreshToken(),
-                ExpiryDate = DateTime.Now.AddMinutes(int.Parse(_configuration["JWT:LifeTimeInMinutes"]))
+                ExpiryDate = expirationTime
             };
         }
 
@@ -54,7 +57,6 @@ namespace GuestBook.BAL.Services
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-
 
     }
 }

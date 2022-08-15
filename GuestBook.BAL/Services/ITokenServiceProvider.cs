@@ -11,6 +11,5 @@ namespace GuestBook.BAL.Services
     public interface ITokenServiceProvider
     {
         AuthResponseDTO GenerateAccessToken(Guest guest);
-
     }
 }
