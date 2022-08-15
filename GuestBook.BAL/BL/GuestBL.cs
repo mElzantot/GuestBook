@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GuestBook.BAL.BL
 {
-    internal class GuestBL : IGuestBL
+    public class GuestBL : IGuestBL
     {
     }
 }

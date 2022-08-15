@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuestBook.BAL.Interfaces
 {
-    internal interface IGuestBL
+    public interface IGuestBL
     {
     }
 }
