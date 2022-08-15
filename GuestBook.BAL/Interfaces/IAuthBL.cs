@@ -11,7 +11,7 @@ namespace GuestBook.BAL.Interfaces
     public interface IAuthBL
     {
         Task<AuthResponseDTO> Register(AuthRequestDTO newGuest);
-
+        Task<AuthResponseDTO> Login(AuthRequestDTO guest);
         Task<bool> CheckIfUserNameExist(string userName);
 
     }

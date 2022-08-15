@@ -43,6 +43,16 @@ namespace GuestBook.BAL.BL
 
         }
 
+        public async Task<AuthResponseDTO> Login(AuthRequestDTO guest)
+        {
+            var user = await _guestRepository.GetGuestAsync(guest.UserName);
+            if (user == null) return null;
+            bool isAuthorized = _hashingService.HashCheck(user.PasswordHash, guest.Password);
+            if (!isAuthorized) return null;
+            return _tokenServiceProvider.GenerateAccessToken(user);
+        }
+
+
         public async Task<bool> CheckIfUserNameExist(string userName)
         {
             var user = await _guestRepository.GetGuestAsync(userName);
