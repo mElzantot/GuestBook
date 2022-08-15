@@ -56,14 +56,24 @@ namespace GuestBook.DAL.Repositories
         {
             using (var conn = new SqlConnection(_connectionString))
             {
-                conn.Open();
-                string sqlCommand = $"INSERT INTO {nameof(Message)} ( [{nameof(Message.MessageBody)}] , [{nameof(Message.GuestId)}] , [{nameof(Message.CreationDate)}] , [{nameof(Message.ParentMessageId)}])" +
-                                     " OUTPUT INSERTED.Id " +
-                                     $" Values( @{nameof(Message.MessageBody)} , @{nameof(Message.GuestId)} , @{nameof(Message.CreationDate)} , @{nameof(Message.ParentMessageId)})";
+                try
+                {
 
-                var result = await conn.ExecuteScalarAsync<int>(sqlCommand, item);
-                item.Id = result;
-                return item;
+                    conn.Open();
+                    string sqlCommand = $"INSERT INTO {nameof(Message)} ( [{nameof(Message.MessageBody)}] , [{nameof(Message.GuestId)}] , [{nameof(Message.CreationDate)}] , [{nameof(Message.ParentMessageId)}])" +
+                                         " OUTPUT INSERTED.Id " +
+                                         $" Values( @{nameof(Message.MessageBody)} , @{nameof(Message.GuestId)} , @{nameof(Message.CreationDate)} , @{nameof(Message.ParentMessageId)})";
+
+                    var result = await conn.ExecuteScalarAsync<int>(sqlCommand, item);
+                    item.Id = result;
+                    return item;
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
             }
         }
 
