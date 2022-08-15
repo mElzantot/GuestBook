@@ -1,12 +1,13 @@
-﻿using System;
+﻿using GuestBook.BAL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuestBook.BAL.Interfaces
+namespace GuestBook.BAL.BL
 {
-    public interface IGuestBL
+    public class AuthBL : IAuthBL
     {
     }
 }
