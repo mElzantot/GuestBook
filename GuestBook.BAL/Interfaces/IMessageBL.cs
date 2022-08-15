@@ -9,9 +9,10 @@ namespace GuestBook.BAL.Interfaces
 {
     public interface IMessageBL
     {
-        Task<bool> WriteNewMessage(AddMessageDTO newMsg, int senderId);
+        Task<bool> WriteNewMessage(string newMsg, int senderId);
         Task<bool> UpdateMessage(UpdateMessageDTO updateMessageDTO);
         Task<bool> DeleteMessage(int messageId);
+        Task<bool> ReplyMessage(AddReplyDTO replyDTO, int senderId);
 
     }
 }

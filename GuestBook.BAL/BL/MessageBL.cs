@@ -18,17 +18,28 @@ namespace GuestBook.BAL.BL
         {
             _messageRepository = messageRepository;
         }
-        public async Task<bool> WriteNewMessage(AddMessageDTO newMsg, int senderId)
+        public async Task<bool> WriteNewMessage(string newMsg, int senderId)
         {
             var message = await _messageRepository.InsertAsync(new Message
             {
-                MessageBody = newMsg.MessageBody,
+                MessageBody = newMsg,
                 CreationDate = DateTime.Now,
                 GuestId = senderId,
-                ParentMessageId = newMsg.ParnetMessageId
+                ParentMessageId = null
             });
             return message.Id > 0;
+        }
 
+        public async Task<bool> ReplyMessage(AddReplyDTO replyDTO, int senderId)
+        {
+            var message = await _messageRepository.InsertAsync(new Message
+            {
+                MessageBody = replyDTO.MessageBody,
+                CreationDate = DateTime.Now,
+                GuestId = senderId,
+                ParentMessageId = replyDTO.ParnetMessageId
+            });
+            return message.Id > 0;
         }
 
         public async Task<bool> UpdateMessage(UpdateMessageDTO updateMessageDTO)

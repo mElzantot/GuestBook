@@ -16,11 +16,11 @@ namespace GuestBook.WebAPI.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IMessageBL _messageBL;
-        private readonly IValidator<AddMessageDTO> _addValidator;
+        private readonly IValidator<AddReplyDTO> _addValidator;
         private readonly IValidator<UpdateMessageDTO> _updateValidator;
 
         public MessageController(IMessageBL messageBL,
-                                IValidator<AddMessageDTO> addValidator,
+                                IValidator<AddReplyDTO> addValidator,
                                 IValidator<UpdateMessageDTO> UpdateValidator
             )
         {
@@ -30,10 +30,9 @@ namespace GuestBook.WebAPI.Controllers
         }
 
         [HttpPost("Write")]
-        public async Task<IActionResult> Write(AddMessageDTO newMsg)
+        public async Task<IActionResult> Write(string newMsg)
         {
-            var validationResult = _addValidator.Validate(newMsg);
-            if (!validationResult.IsValid) return BadRequest(new { Errors = validationResult.Errors[0].ErrorMessage });
+            if (string.IsNullOrWhiteSpace(newMsg)) return BadRequest(); 
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var IsWritten = await _messageBL.WriteNewMessage(newMsg, userId);
             return Ok(new { addedSuccessfully = IsWritten });
@@ -53,6 +52,17 @@ namespace GuestBook.WebAPI.Controllers
         {
             var IsWritten = await _messageBL.DeleteMessage(id);
             return Ok(new { addedSuccessfully = IsWritten });
+        }
+
+        [HttpPost("Reply")]
+        public async Task<IActionResult> Reply(AddReplyDTO replyMsg)
+        {
+            var validationResult = _addValidator.Validate(replyMsg);
+            if (!validationResult.IsValid) return BadRequest(new { Errors = validationResult.Errors[0].ErrorMessage });
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var IsWritten = await _messageBL.ReplyMessage(replyMsg, userId);
+            return Ok(new { addedSuccessfully = IsWritten });
+
         }
 
 

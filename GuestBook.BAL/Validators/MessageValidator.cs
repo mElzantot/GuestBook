@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace GuestBook.BAL.Validators
 {
-    public class AddMessageValidator : AbstractValidator<AddMessageDTO>
+    public class AddReplyValidator : AbstractValidator<AddReplyDTO>
     {
-        public AddMessageValidator()
+        public AddReplyValidator()
         {
             RuleFor(m => m.MessageBody).NotEmpty().WithMessage("Message Can't be empty");
+            RuleFor(m => m.ParnetMessageId).NotNull().NotEqual(0);
         }
     }
     public class UpdateMessageValidator : AbstractValidator<UpdateMessageDTO>
@@ -23,4 +24,6 @@ namespace GuestBook.BAL.Validators
             RuleFor(m => m.MessageBody).NotEmpty().WithMessage("Message Can't be empty");
         }
     }
+
+
 }

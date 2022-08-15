@@ -22,7 +22,7 @@ builder.Services.AddInfraStructure();
 builder.Services.AddScoped<IAuthBL, AuthBL>();
 builder.Services.AddScoped<IMessageBL, MessageBL>();
 builder.Services.AddScoped<IValidator<AuthRequestDTO>, AuthValidator>();
-builder.Services.AddScoped<IValidator<AddMessageDTO>, AddMessageValidator>();
+builder.Services.AddScoped<IValidator<AddReplyDTO>, AddReplyValidator>();
 builder.Services.AddScoped<IValidator<UpdateMessageDTO>, UpdateMessageValidator>();
 builder.Services.AddScoped<ITokenServiceProvider, TokenServiceProvider>();
 builder.Services.AddScoped<IHashingService, HashingService>();

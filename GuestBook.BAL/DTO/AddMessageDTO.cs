@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GuestBook.BAL.DTO
 {
-    public class AddMessageDTO
+    public class AddReplyDTO
     {
-        public string? MessageBody { get; set; }
-        public int? ParnetMessageId { get; set; }
+        public string MessageBody { get; set; }
+        public int ParnetMessageId { get; set; }
     }
 }
