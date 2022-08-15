@@ -15,10 +15,11 @@ namespace GuestBook.BAL.Validators
             RuleFor(m => m.MessageBody).NotEmpty().WithMessage("Message Can't be empty");
         }
     }
-    public class EditMessageValidator : AbstractValidator<UpdateMessageDTO>
+    public class UpdateMessageValidator : AbstractValidator<UpdateMessageDTO>
     {
-        public EditMessageValidator()
+        public UpdateMessageValidator()
         {
+            RuleFor(m => m.Id).NotNull().NotEqual(0);
             RuleFor(m => m.MessageBody).NotEmpty().WithMessage("Message Can't be empty");
         }
     }

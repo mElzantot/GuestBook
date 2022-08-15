@@ -9,6 +9,6 @@ namespace GuestBook.BAL.DTO
     public class UpdateMessageDTO
     {
         public int Id { get; set; }
-        public string? MessageBody { get; set; }
+        public string MessageBody { get; set; }
     }
 }
