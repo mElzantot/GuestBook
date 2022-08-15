@@ -30,11 +30,11 @@ namespace GuestBook.WebAPI.Controllers
         }
 
         [HttpPost("Write")]
-        public async Task<IActionResult> Write(string newMsg)
+        public async Task<IActionResult> Write(NewMessageDTO newMessage)
         {
-            if (string.IsNullOrWhiteSpace(newMsg)) return BadRequest(); 
+            if (newMessage == null || string.IsNullOrWhiteSpace(newMessage.NewMsg)) return BadRequest();
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var IsWritten = await _messageBL.WriteNewMessage(newMsg, userId);
+            var IsWritten = await _messageBL.WriteNewMessage(newMessage.NewMsg, userId);
             return Ok(new { addedSuccessfully = IsWritten });
         }
 
