@@ -1,6 +1,6 @@
 # GuestBook
 -----------------------------------------
-Project Structure  :=
+Project Structure  :
 --------------------
 1. DAL projects 
     - Entites
@@ -13,13 +13,14 @@ Project Structure  :=
     -- Message Controller {Write , Update , Delete}
           -- Write API can used to reply on messages also by sendind parent message id in request body
 ---------------------------------------------------------------------------------------------------------
-In this Project I Used 
+In this Project I Used :
+------------------------
 1. Dapper as a micro ORM to connect to sql server 
 2. Fluent Validation to validate user inputs
 3. JWT Token to authorize users
 
 ---------------------------------------------------------------------------------------------------------
-Before you start 
+Before you start :
 --------------------
 1. Create a new DataBase in SQL Server 
 2. Update appsettings with the new connectionstring for your DB 
