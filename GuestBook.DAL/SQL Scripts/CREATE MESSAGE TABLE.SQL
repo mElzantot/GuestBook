@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Message]
+(
+	[Id] INT NOT NULL PRIMARY KEY  IDENTITY(1,1), 
+	[MessageBody] varchar(500) NOT NULL ,
+	[CreationDate] DATETIME2 NOT NULL ,
+	[GuestId] INT NOT NULL ,
+	[ParentMessageId] INT NULL ,
+	[IsDeleted] BIT DEFAULT(0) ,
+	CONSTRAINT FK_GUEST_ID FOREIGN KEY (GuestId) REFERENCES [Guest](Id) ,
+	CONSTRAINT FK_PARENT_MESSAGE_ID FOREIGN KEY (ParentMessageId) REFERENCES [Message](Id) ,
+) ;
