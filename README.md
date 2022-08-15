@@ -10,8 +10,7 @@ Project Structure  :
    -- Services used (Hashing and Token Provider)
 3. Web API 
     -- Auth Controller {Register , Login}
-    -- Message Controller {Write , Update , Delete}
-          -- Write API can used to reply on messages also by sendind parent message id in request body
+    -- Message Controller {Write , Update , Delete , Reply}
 ---------------------------------------------------------------------------------------------------------
 In this Project I Used :
 ------------------------
