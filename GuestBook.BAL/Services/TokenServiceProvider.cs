@@ -21,7 +21,7 @@ namespace GuestBook.BAL.Services
             _configuration = configuration;
         }
 
-        public AuthResponseDTO GenerateAccessTokenAsync(Guest guest)
+        public AuthResponseDTO GenerateAccessToken(Guest guest)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
             var token = new JwtSecurityToken(
