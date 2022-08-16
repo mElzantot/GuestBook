@@ -43,15 +43,15 @@ namespace GuestBook.WebAPI.Controllers
         {
             var validationResult = _updateValidator.Validate(messageDTO);
             if (!validationResult.IsValid) return BadRequest(new { Errors = validationResult.Errors[0].ErrorMessage });
-            var IsWritten = await _messageBL.UpdateMessage(messageDTO);
-            return Ok(new { addedSuccessfully = IsWritten });
+            var isUpdated = await _messageBL.UpdateMessage(messageDTO);
+            return Ok(new { updated = isUpdated });
         }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> UpdateMessage(int id)
         {
-            var IsWritten = await _messageBL.DeleteMessage(id);
-            return Ok(new { addedSuccessfully = IsWritten });
+            var isDeleted = await _messageBL.DeleteMessage(id);
+            return Ok(new { deleted = isDeleted });
         }
 
         [HttpPost("Reply")]
